@@ -1,109 +1,66 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 #include "funciones.h"
+#define MAX 20
 
 
 int main()
 {
+
     char seguir='s';
     int opcion=0;
-    float x;
-    float y;
-    float z;
-
+    int flag;
+    system("color 17");
+    ePersona personas[MAX];
+    inicializar(personas, MAX);
 
     while(seguir=='s')
     {
-        system("color F1");
-        printf("1- Ingresar 1er operando (A=%.2f)\n",x);
-        printf("2- Ingresar 2do operando (B=%.2f)\n", y);
-        printf("3- Calcular la suma (%.2f + %.2f)\n", x,y);
-        printf("4- Calcular la resta (%.2f - %.2f)\n", x,y);
-        printf("5- Calcular la division (%.3f/%.3f)\n", x,y);
-        printf("6- Calcular la multiplicacion (%.2f*%.2f)\n",x,y);
-        printf("7- Calcular el factorial (%2.f!)\n",x);
-        printf("8- Calcular todas las operaciones\n");
-        printf("9- Salir\n");
+        printf("\n1- Agregar persona\n");
+        printf("2- Borrar persona\n");
+        printf("3- Imprimir lista ordenada por  nombre\n");
+        printf("4- Imprimir grafico de edades\n\n");
+        printf("5- Salir\n");
+
 
         scanf("%d",&opcion);
 
-        if(opcion<1||opcion>9)
+        if(opcion<1||opcion>5)
         {
             printf("\nIngrese una opcion valida\n");
             scanf("%d",&opcion);
         }
-
-        switch(opcion)
+        else
         {
-        case 1:
-            printf("1- Ingresar 1er operando\n");
-            scanf("%f",&x);
-            break;
-        case 2:
-            printf("2- Ingresar 2do operando\n");
-            scanf("%f", &y);
-            break;
-        case 3:
-            z=suma(x,y);
-            printf("\n\n\nEl resultado de la suma es %.2f\n", z);
-            system("pause");
-            system("cls");
-            break;
-        case 4:
-            z=resta(x,y);
-            printf("\n\n\nEl resultado de la resta es %.2f \n", z);
-            system("pause");
-            system("cls");
-            break;
-        case 5:
 
-            if((z=division(x,y))!=0)
+            switch(opcion)
             {
-                printf("\n\n\nEl resultado de la division es %.4f \n",z);
-            }
-            system("pause");
-            system("cls");
-            break;
-        case 6:
-            z=multiplicacion(x,y);//llamada la funcion suma
-            printf("\n\n\nEl resultado de la multiplicacion es %.2f \n", z);
-            system("pause");
-            system("cls");
-            break;
+            case 1:
+                system("cls");
+                cargarPersonas(personas, MAX);
 
-        case 7:
-            if((z=factorial(x))>=1)
+                break;
+            case 2:
+                system("cls");
+                eliminarPersona(personas, MAX);
+                break;
+            case 3:
+                system("cls");
+                printf("DNI\t\tNOMBRE\t\t\tEDAD\t\t\n");
+                ordenarPersona(personas, MAX);
 
-            {
-                printf("\n\n\nEl factorial de %1.f es %1.f\n",x,z);
+                break;
+            case 4:
+                graficoPersona(personas,MAX, flag);
+                break;
+            case 5:
+                seguir = 'n';
+                break;
             }
-            system("pause");
-            system("cls");
-            break;
-        case 8:
-            z=suma(x,y);
-            printf("\n\n\nEl resultado de la suma es: %.2f \n", z);
-            z=resta(x,y);
-            printf("\n\n\nEl resultado de la resta es: %.2f \n", z);
-            if((z=division(x,y))!=0)
-            {
-                printf("\n\n\nEl resultado de la division es %.4f \n",z);
-            }
-            z=multiplicacion(x,y);
-            printf("\n\n\nEl resultado de la multiplicacion es: %.2f \n", z);
-            if((z=factorial(x))>=1)
-
-            {
-                printf("\n\n\nEl factorial de %1.f es %1.f\n",x,z);
-            }
-            system("pause");
-            system("cls");
-
-            break;
-        case 9:
-            seguir = 'n';
-            break;
         }
     }
+
     return 0;
 }
